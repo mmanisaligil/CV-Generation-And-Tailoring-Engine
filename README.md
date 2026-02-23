@@ -43,8 +43,20 @@ This repo is configured as **two services**:
   - Run: `npm run start`
 - `backend` uses Docker from `backend/Dockerfile` on port `8000`
 
-Use `.do/app.yaml` when creating the app in DigitalOcean.
-Only `frontend` is publicly routed; backend has no public route and is intended for internal service-to-service traffic.
+Use root `app.yaml` when creating the app in DigitalOcean (same spec is mirrored at `.do/app.yaml`).
+Only `frontend` is publicly routed at `/`; backend has no public route and is intended for internal service-to-service traffic.
+
+### DigitalOcean deployment steps
+1. Push this repository to GitHub/GitLab.
+2. In DigitalOcean App Platform, choose **Create App > App Spec** and select `app.yaml` from repo root.
+3. Set secret `OPENAI_API_KEY` in the App Platform UI (or keep from spec prompt).
+4. Confirm service config:
+   - `frontend`: source `/frontend`, Node buildpack, build `npm install && npm run build`, run `npm run start`
+   - `backend`: source `/backend`, Dockerfile build, port `8000`
+5. Deploy.
+6. Verify:
+   - Frontend URL loads app
+   - Backend internal health responds from frontend runtime via `NEXT_PUBLIC_API_URL`
 
 ## API endpoints
 - `POST /api/parse` - Parse uploaded PDF/image into `MasterCVData`
