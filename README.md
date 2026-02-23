@@ -40,7 +40,7 @@ cd backend && pip install -r requirements.txt && uvicorn app.main:app --reload
 This repo is configured as **two services**:
 - `frontend` uses **Node buildpack auto-detection** from `frontend/package.json` with:
   - Build: `npm install && npm run build`
-  - Run: `npm run start`
+  - Run: `npm run start -- --hostname 0.0.0.0 --port ${PORT}`
 - `backend` uses Docker from `backend/Dockerfile` on port `8000`
 
 Use root `app.yaml` when creating the app in DigitalOcean (same spec is mirrored at `.do/app.yaml`).
@@ -48,10 +48,10 @@ Only `frontend` is publicly routed at `/`; backend has no public route and is in
 
 ### DigitalOcean deployment steps
 1. Push this repository to GitHub/GitLab.
-2. In DigitalOcean App Platform, choose **Create App > App Spec** and select `app.yaml` from repo root.
+2. In DigitalOcean App Platform, choose **Create App > App Spec** and select `app.yaml` from repo root (do not use raw autodetect flow).
 3. Set secret `OPENAI_API_KEY` in the App Platform UI (or keep from spec prompt).
 4. Confirm service config:
-   - `frontend`: source `/frontend`, Node buildpack, build `npm install && npm run build`, run `npm run start`
+   - `frontend`: source `/frontend`, Node buildpack, build `npm install && npm run build`, run `npm run start -- --hostname 0.0.0.0 --port ${PORT}`
    - `backend`: source `/backend`, Dockerfile build, port `8000`
 5. Deploy.
 6. Verify:

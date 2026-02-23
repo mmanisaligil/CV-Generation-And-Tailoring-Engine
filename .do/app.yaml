@@ -5,8 +5,8 @@ services:
     environment_slug: node-js
     source_dir: frontend
     build_command: npm install && npm run build
-    run_command: npm run start
-    http_port: 3000
+    run_command: npm run start -- --hostname 0.0.0.0 --port ${PORT}
+    http_port: 8080
     routes:
       - path: /
     envs:
