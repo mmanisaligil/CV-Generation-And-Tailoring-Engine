@@ -70,4 +70,4 @@ Only `frontend` is publicly routed at `/`; backend has no public route and is in
 ## Assumptions
 - OpenAI calls are stubbed for deterministic local startup; endpoints are contract-compatible.
 - `/api/render` currently returns compiled LaTeX bytes with `application/pdf` header as an MVP-compatible stub.
-- In DigitalOcean, frontend should call backend via internal URL `https://backend.cv-engine.internal` configured in `NEXT_PUBLIC_API_URL`.
+- In DigitalOcean, `NEXT_PUBLIC_API_URL` is wired to `${backend.PRIVATE_URL}` so frontend calls the internal backend service URL automatically.
