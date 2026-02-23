@@ -5,7 +5,7 @@ services:
     environment_slug: node-js
     source_dir: frontend
     build_command: npm install && npm run build
-    run_command: npm run start -- --hostname 0.0.0.0 --port ${PORT}
+    run_command: npm run start -- --hostname 0.0.0.0 --port 8080
     http_port: 8080
     routes:
       - path: /
@@ -16,8 +16,9 @@ services:
 
   - name: backend
     source_dir: backend
-    dockerfile_path: backend/Dockerfile
+    dockerfile_path: Dockerfile
     http_port: 8000
+    run_command: uvicorn app.main:app --host 0.0.0.0 --port 8000
     instance_count: 1
     instance_size_slug: apps-s-1vcpu-0.5gb
     envs:
