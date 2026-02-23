@@ -35,6 +35,16 @@ cd frontend && npm install && npm run dev
 cd backend && pip install -r requirements.txt && uvicorn app.main:app --reload
 ```
 
+
+## DigitalOcean App Platform
+If auto-detection fails in a monorepo, this repo now includes explicit App Spec and root Dockerfile:
+- `.do/app.yaml` defines `frontend` and `backend` services for monorepo deployment.
+- Root `Dockerfile` provides a detectable fallback container (backend API).
+
+Deploy options:
+1. Preferred: use **App Spec** from `.do/app.yaml`.
+2. Fallback: deploy root `Dockerfile` as a single service.
+
 ## API endpoints
 - `POST /api/parse` - Parse uploaded PDF/image into `MasterCVData`
 - `POST /api/enhance/summary` - Rewrite summary text
