@@ -1,0 +1,2 @@
+# Root shim for DigitalOcean detection
+-r backend/requirements.txt

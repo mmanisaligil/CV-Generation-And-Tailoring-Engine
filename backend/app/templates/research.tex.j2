@@ -1,0 +1,22 @@
+\\documentclass[11pt]{article}
+\\usepackage[margin=1in]{geometry}
+\\begin{document}
+\\section*{ {{ cv.fullName }} }
+{{ cv.email }} | {{ cv.phone }}
+
+\\subsection*{Summary}
+{{ cv.summary }}
+
+\\subsection*{Experience}
+{% for exp in cv.experience %}
+\\textbf{ {{ exp.role }} } - {{ exp.company }} ({{ exp.startDate }}--{{ exp.endDate }})
+\\begin{itemize}
+{% for item in exp.responsibilities %}
+  \\item {{ item }}
+{% endfor %}
+\\end{itemize}
+{% endfor %}
+
+\\subsection*{Skills}
+{{ cv.skills | join(', ') }}
+\\end{document}
